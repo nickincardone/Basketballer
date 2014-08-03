@@ -4,6 +4,7 @@ import sys
 
 #constants
 
+#edit dates to get games you want
 dates = ["20140419","20140422","20140424","20140426","20140428","20140501","20140503"]
 
 #example=http://www.cbssports.com/nba/gametracker/shotchart/NBA_20140117_GS@OKC
@@ -16,6 +17,8 @@ gameId = ""
 
 apiUrl = "http://api.nba.onetwosee.com/update/" #append date 20140419 and home team id
 
+
+#teams and there respective ids
 teamDict = {
 	"ATL": "01",
 	"BOS": "02",
