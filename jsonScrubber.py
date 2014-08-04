@@ -1,7 +1,7 @@
 import json
 import os
 
-folderName = "hawksPacers"
+folderName = "games"
 listOfGames = []
 masterDict = []
 players = {}

@@ -1,11 +1,14 @@
 import urllib2
 import json
 import sys
+import os
 
 #constants
 
 #edit dates to get games you want
 dates = ["20140419","20140422","20140424","20140426","20140428","20140501","20140503"]
+team1 = "01"
+team2 = "11"
 
 #example=http://www.cbssports.com/nba/gametracker/shotchart/NBA_20140117_GS@OKC
 #cbsShotchartUrl = 'http://www.cbssports.com/nba/gametracker/shotchart/NBA_'+str(date)+'_'
@@ -88,24 +91,33 @@ def getDaysGames(date):
 	return games
 
 def do():
+	if not os.path.exists("games"):
+		os.makedirs("games")
+
 	for date in dates:
 		gameList = getDaysGames(date)
 		for game in gameList:
-			gameId = date + teamDict[game[game.find("@")+1:]]
-			try:	
-				bloop = urllib2.urlopen(apiUrl + gameId)
-				html = bloop.read()
-				bloop.close()
+			if teamDict[game[game.find("@")+1:]] == team1 or teamDict[game[game.find("@")+1:]] == team2:
+				print "here"
+				gameId = date + teamDict[game[game.find("@")+1:]]
+				try:	
+					bloop = urllib2.urlopen(apiUrl + gameId)
+					html = bloop.read()
+					bloop.close()
 
-				#tempUrl.close()
-			except urllib2.HTTPError, e:
-			    print e.code
-			    print e.msg
-			    print e.headers
-			    print e.fp.read()
+					#tempUrl.close()
+				except urllib2.HTTPError, e:
+				    print e.code
+				    print e.msg
+				    print e.headers
+				    print e.fp.read()
 
 
-			
-			f=open(gameId + ".json","w")
-			f.write(html)
-			f.close()
+				
+				f=open("games/" + gameId + ".json","w")
+				f.write(html)
+				f.close()
+
+if __name__ == "__main__":
+    print "main running in csvToJson.py"
+    do()
