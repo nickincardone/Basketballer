@@ -10,6 +10,39 @@ final = {}
 hawks = []
 pacers = []
 
+teamDict = {
+    "ATL": "01",
+    "BOS": "02",
+    "BKN": "17",
+    "CHA": "30",
+    "CHI": "04",
+    "CLE": "05",
+    "DAL": "06",
+    "DEN": "07",
+    "DET": "08",
+    "GS": "09",
+    "HOU": "10",
+    "IND": "11",
+    "LAC": "12",
+    "LAL": "13",
+    "MEM": "29",
+    "MIA": "14",
+    "MIL": "15",
+    "MIN": "16",
+    "NO": "03",
+    "NY": "18",
+    "OKC": "25",
+    "ORL": "19",
+    "PHI": "20",
+    "PHO": "21",
+    "POR": "22",
+    "SAC": "23",
+    "SA": "24",
+    "TOR": "28",
+    "UTA": "26",
+    "WAS": "27"
+}
+
 
 def main():
     global masterDict
