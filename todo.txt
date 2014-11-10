@@ -1,8 +1,0 @@
-Need to have a matchup array, array of list of matchups (should be 15 (8 4 2 1))
-
-conduct everything based on matchups to keep things organize
-
-check for overtime capability
-
-add error checking (ensure opponents/teammates are size 5)
-
