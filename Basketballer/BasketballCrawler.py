@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from datetime import date, timedelta
+import os
 
 
 class ScheduleBuilder(object):
@@ -37,10 +38,10 @@ class ScheduleBuilder(object):
             self.schedule = json.load(data_file)
 
     def get_schedule(self):
-        if self.schedule == {}:
+        if os.path.exists('data/schedule.json'):
             self.pull_schedule()
         else:
-            self.pull_schedule()
+            self.build_schedule()
         return self.schedule
 
     def __date(self, date):
@@ -89,13 +90,18 @@ class Basketballer(object):
         self.schedule = schedule
 
     def get_games(self):
-        date = self.schedule.keys()[0]
-        for game in self.schedule[date]:
-            pbp, game_id = self.get_pbp(game, date)
-            self.export_pbp(pbp, game_id, date)
+        for date in self.schedule:
+            if not os.path.exists('data/games/' + date):
+                os.makedirs('data/games/' + date)
+            for game in self.schedule[date]:
+                pbp, game_id = self.get_pbp(game, date)
+                self.export_pbp(pbp, game_id, date)
 
     def get_pbp(self, game, date):
         game_id = date + self.teams[game.split('@')[1]]
+        #if os.path.exists('data/games/' + str(date) + "/" + str(game_id) + ".json"):
+        #    with open('data/games/' + str(date) + "/" + str(game_id) + ".json") as data_file:
+        #        return json.load(data_file)
         r = requests.get(self.api+game_id)
         pbp = json.loads(r.text)
         return pbp["pbp"]["sports-scores"]["nba-scores"]["nba-playbyplay"]["play"], game_id
