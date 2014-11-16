@@ -135,6 +135,10 @@ class Game(object):
         self.export['home-players'] = self.home_players
         self.export['away_players'] = self.away_players
         self.export['shots'] = []
+        self.export['game-info'] = {}
+        self.export['game-info']['date'] = date
+        self.export['game-info']['home-team'] = self.home
+        self.export['game-info']['away-team'] = self.away
 
     def get_players(self, game_info):
         home_team = {}
@@ -284,7 +288,11 @@ class Game(object):
         shot["shot"]["time"]["sec"] = float(play["time-seconds"])
 
         #0=missed 1=made free throw 2=made two 3=made three
-        shot["shot"]["result"] = int(play["points-type"])
+        shot["shot"]["type"] = int(play["points-type"])
+        if play['event-id'] == '4':
+            shot['shot']['result'] = True
+        else:
+            shot['shot']['result'] = False
 
         #shot["shot"]["assist"] = {}
         #shot["shot"]["assist"]["assisted"]
