@@ -105,9 +105,9 @@ class Basketballer(object):
 
     def get_pbp(self, game, date):
         game_id = date + self.teams[game.split('@')[1]]
-        # if os.path.exists('data/games/' + str(date) + '/' + str(game_id) + '.json'):
-        #    with open('data/games/' + str(date) + '/' + str(game_id) + '.json') as data_file:
-        #        return json.load(data_file), game_id
+        if os.path.exists('data/games/' + str(date) + '/' + str(game_id) + '.json'):
+            with open('data/games/' + str(date) + '/' + str(game_id) + '.json') as data_file:
+                return json.load(data_file), game_id
         r = requests.get(self.api + game_id)
         return json.loads(r.text), game_id
 
